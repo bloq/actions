@@ -1,0 +1,43 @@
+name: JS Checks
+
+on:
+  workflow_call:
+    inputs:
+      fetch-depth:
+        description: Number of commits to fetch. 0 indicates all history for all branches and tags.
+        default: 1
+        type: number
+      node-versions:
+        description: Array of Node versions to test with as a JSON string. Default to use the version in the .nvmrc file.
+        default: "['']"
+        type: string
+
+jobs:
+  run-checks:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: ${{ inputs.fetch-depth }}
+      - uses: bloq/actions/setup-node-env@v1
+      - run: npm run --if-present format:check
+      - run: npm run --if-present lint
+      - run: npm run --if-present --include-workspace-root --workspaces deps:check
+      - run: npm run --if-present --include-workspace-root --workspaces build
+  run-tests:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: ${{ inputs.fetch-depth }}
+      - uses: bloq/actions/setup-node-env@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm run --if-present --include-workspace-root --workspaces test
+    strategy:
+      matrix:
+        node-version: ${{ fromJSON(inputs.node-versions) }}
