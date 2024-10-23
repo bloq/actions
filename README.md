@@ -5,6 +5,7 @@ Actions to simplify GitHub Actions workflows.
 ## Actions
 
 - `setup-node-env`: Setups up Node, restores NPM cache and installs dependencies
+- `publish-to-npm`: Sets up Node, runs the prepublishOnly script and publishes the package to the NPM registry
 
 ## Usage
 
