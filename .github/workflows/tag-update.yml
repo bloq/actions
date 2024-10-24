@@ -1,0 +1,24 @@
+name: Tag Update
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  update-major-version-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: |
+          COMMIT_SHA=$(git rev-list -n 1 "$GITHUB_REF")
+          AUTHOR_NAME=$(git log -1 --format='%an' "$COMMIT_SHA")
+          AUTHOR_EMAIL=$(git log -1 --format='%ae' "$COMMIT_SHA")
+          git config user.name "$AUTHOR_NAME"
+          git config user.email "$AUTHOR_EMAIL"
+      - run: |
+          MAJOR_VERSION=$(echo "$GITHUB_REF" | grep -oP '^v\d+')
+          git tag -f "$MAJOR_VERSION"
+          git push origin "$MAJOR_VERSION" --force
