@@ -5,6 +5,9 @@ author: Gabriel Montes
 description: Setups up Node, restores NPM cache and installs dependencies
 
 inputs:
+  cache:
+    description: "Used to specify a package manager for caching in the default directory. Supported values: npm, yarn, pnpm."
+    default: npm
   node-version:
     description: The version of Node to install
     default: ""
@@ -14,12 +17,19 @@ runs:
   steps:
     - uses: actions/setup-node@v4
       with:
-        cache: npm
+        cache: ${{ inputs.cache }}
         cache-dependency-path: "**/package-lock.json"
         node-version: ${{ inputs.node_version }}
         node-version-file: .nvmrc
     - run: npm ci
       shell: bash
+      if: ${{ inputs.cache == "npm" }}
+    - run: pnpm install --frozen-lockfile
+      shell: bash
+      if: ${{ inputs.cache == "pnpm" }}
+    - run: yarn install --immutable
+      shell: bash
+      if: ${{ inputs.cache == "yarn" }}
 
 branding:
   color: blue
