@@ -23,13 +23,13 @@ runs:
         node-version-file: .nvmrc
     - run: npm ci
       shell: bash
-      if: ${{ inputs.cache == "npm" }}
+      if: ${{ inputs.cache == 'npm' }}
     - run: pnpm install --frozen-lockfile
       shell: bash
-      if: ${{ inputs.cache == "pnpm" }}
+      if: ${{ inputs.cache == 'pnpm' }}
     - run: yarn install --immutable
       shell: bash
-      if: ${{ inputs.cache == "yarn" }}
+      if: ${{ inputs.cache == 'yarn' }}
 
 branding:
   color: blue
