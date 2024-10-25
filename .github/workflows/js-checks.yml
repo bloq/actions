@@ -3,6 +3,10 @@ name: JS Checks
 on:
   workflow_call:
     inputs:
+      cache:
+        description: "Used to specify a package manager for caching in the default directory. Supported values: npm, yarn, pnpm."
+        default: npm
+        type: string
       fetch-depth:
         description: Number of commits to fetch. 0 indicates all history for all branches and tags.
         default: 1
@@ -22,6 +26,8 @@ jobs:
         with:
           fetch-depth: ${{ inputs.fetch-depth }}
       - uses: bloq/actions/setup-node-env@v1
+        with:
+          cache: ${{ inputs.cache }}
       - run: npm run --if-present format:check
       - run: npm run --if-present lint
       - run: npm run --if-present --include-workspace-root --workspaces deps:check
@@ -36,6 +42,7 @@ jobs:
           fetch-depth: ${{ inputs.fetch-depth }}
       - uses: bloq/actions/setup-node-env@v1
         with:
+          cache: ${{ inputs.cache }}
           node-version: ${{ matrix.node-version }}
       - run: npm run --if-present --include-workspace-root --workspaces test
     strategy:
