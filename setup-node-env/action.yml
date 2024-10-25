@@ -15,15 +15,14 @@ inputs:
 runs:
   using: composite
   steps:
+    - uses: pnpm/action-setup@v4.0.0
+      if: ${{ inputs.cache == 'pnpm' }}
     - uses: actions/setup-node@v4
       with:
         cache: ${{ inputs.cache }}
-        cache-dependency-path: "**/package-lock.json"
+        cache-dependency-path: ${{ inputs.cache == 'npm' && '**/package-lock.json' || '' }}
         node-version: ${{ inputs.node_version }}
         node-version-file: .nvmrc
-    - run: corepack enable
-      shell: bash
-      if: ${{ inputs.cache != 'npm' }}
     - run: npm ci
       shell: bash
       if: ${{ inputs.cache == 'npm' }}
