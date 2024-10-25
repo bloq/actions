@@ -21,6 +21,9 @@ runs:
         cache-dependency-path: "**/package-lock.json"
         node-version: ${{ inputs.node_version }}
         node-version-file: .nvmrc
+    - run: corepack enable
+      shell: bash
+      if: ${{ inputs.cache != 'npm' }}
     - run: npm ci
       shell: bash
       if: ${{ inputs.cache == 'npm' }}
