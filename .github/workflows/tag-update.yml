@@ -3,7 +3,7 @@ name: Tag Update
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
 
 jobs:
   update-major-version-tag:
