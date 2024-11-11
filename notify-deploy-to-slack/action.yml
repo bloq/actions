@@ -15,9 +15,6 @@ inputs:
     description: 'Additional reference to add to the notification'
     required: false
     default: ''
-  slack-channel:
-    description: 'The name of the Slack channel'
-    required: true
   slack-mention:
     description: 'The mention to include in the message'
     default: <!here>
@@ -35,13 +32,12 @@ runs:
       with:
         payload: |
           {
-            "channel": "${{ inputs.slack-channel }}",
-            "username": "Github Actions Notification Test",
-            "text": ${{ toJSON(format('{0} Deployment of {1} to {2} {3}{4}{5}', inputs.slack-mention, inputs.app-name, inputs.environment, inputs.status, env.SEPARATOR, inputs.reference)) }},
-            "icon_emoji": ":github:"
+            "text": ${{ toJSON(join(env.PAYLOAD_TEXT, '\n')) }}
           }
       env:
-        SEPARATOR: ${{ inputs.reference != '' && '\n' || '' }}
+        PAYLOAD_TEXT: |
+          ${{ format('{0} Deployment of {1} to {2} {3}', inputs.slack-mention, inputs.app-name, inputs.environment, inputs.status) }}
+          ${{ inputs.reference }}
         SLACK_WEBHOOK_URL: ${{ inputs.slack-webhook-url }}
 
 branding:
