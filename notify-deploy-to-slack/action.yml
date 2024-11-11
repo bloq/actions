@@ -1,0 +1,49 @@
+name: Notify to Slack
+
+author: Gabriel Montes
+
+description: Send a notification to Slack using incoming webhooks
+
+inputs:
+  app-name:
+    description: 'The app being deployed'
+    required: true
+  environment:
+    description: 'The deployment environment'
+    required: true
+  reference:
+    description: 'Additional reference to add to the notification'
+    required: false
+    default: ''
+  slack-channel:
+    description: 'The name of the Slack channel'
+    required: true
+  slack-mention:
+    description: 'The mention to include in the message'
+    default: <!here>
+  slack-webhook-url:
+    description: 'The Slack incoming webhook URL'
+    required: true
+  status:
+    description: 'The deployment status'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: slackapi/slack-github-action@v1
+      with:
+        payload: |
+          {
+            "channel": "${{ inputs.slack-channel }}",
+            "username": "Github Actions Notification Test",
+            "text": "${{ format('{0} Deployment of {1} to {2} {3}{4}{5}', inputs.slack-mention, inputs.app-name, inputs.environment, inputs.status, env.SEPARATOR, inputs.reference) }}",
+            "icon_emoji": ":github:"
+          }
+      env:
+        SEPARATOR: ${{ inputs.reference != '' && '\n' || '' }}
+        SLACK_WEBHOOK_URL: ${{ inputs.slack-webhook-url }}
+
+branding:
+  color: blue
+  icon: bell
