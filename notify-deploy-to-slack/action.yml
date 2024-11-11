@@ -37,7 +37,7 @@ runs:
           {
             "channel": "${{ inputs.slack-channel }}",
             "username": "Github Actions Notification Test",
-            "text": "${{ format('{0} Deployment of {1} to {2} {3}{4}{5}', inputs.slack-mention, inputs.app-name, inputs.environment, inputs.status, env.SEPARATOR, inputs.reference) }}",
+            "text": ${{ toJSON(format('{0} Deployment of {1} to {2} {3}{4}{5}', inputs.slack-mention, inputs.app-name, inputs.environment, inputs.status, env.SEPARATOR, inputs.reference)) }},
             "icon_emoji": ":github:"
           }
       env:
