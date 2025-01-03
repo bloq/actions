@@ -17,6 +17,7 @@ runs:
       shell: bash
     - uses: JS-DevTools/npm-publish@v3
       with:
+        provenance: true
         token: ${{ inputs.token }}
 
 branding:
