@@ -32,3 +32,11 @@ jobs:
 ```
 
 See the GitHub Actions docs for details about [how to use a public action](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#example-using-a-public-action) and how to reference a [reusable workflow](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#jobsjob_iduses).
+
+## Release process
+
+Once the PRs with the changes are approved, either merge the branch locally and push `master` or merge the PR in GitHub and pull `master`. Then update and push the tags:
+
+```sh
+./bump-version <major, minor, patch>
+```
