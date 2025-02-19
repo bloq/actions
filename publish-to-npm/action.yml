@@ -8,6 +8,10 @@ inputs:
   token:
     description: The NPM access token to use when publishing
     required: true
+  provenance:
+    description: Attach provenance statements when publishing
+    required: false
+    default: 'false'
 
 runs:
   using: composite
@@ -17,7 +21,7 @@ runs:
       shell: bash
     - uses: JS-DevTools/npm-publish@v3
       with:
-        provenance: true
+        provenance: ${{ inputs.provenance == "true" }}
         token: ${{ inputs.token }}
 
 branding:

@@ -23,4 +23,5 @@ jobs:
           fetch-depth: ${{ inputs.fetch-depth }}
       - uses: bloq/actions/publish-to-npm@v1
         with:
+          provenance: "true"
           token: ${{ secrets.NPM_TOKEN }}
