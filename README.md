@@ -4,12 +4,14 @@ Actions and workflows to make GitHub Actions simpler, more robust and more effic
 
 ## Actions
 
-- `setup-node-env`: Setups up Node, restores NPM cache and installs dependencies
-- `publish-to-npm`: Sets up Node, runs the prepublishOnly script and publishes the package to the NPM registry
+- `notify-deploy-to-slack`: Sends a notification to Slack using a pre-configured webhook.
+- `publish-to-npm`: Sets up Node, runs the prepublishOnly script and publishes the package to the NPM registry.
+- `setup-node-env`: Setups up Node, restores NPM cache and installs dependencies.
 
 ## Reusable workflows
 
-- `js-checks`: Run standard checks as linter, code formatter; then run tests against different Node versions
+- `js-checks`: Run standard checks as linter, code formatter; then run tests against different Node versions.
+- `npm-publish`: Publish a package to NPM.
 
 ## Usage
 
