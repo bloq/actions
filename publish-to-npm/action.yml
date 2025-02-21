@@ -21,7 +21,7 @@ runs:
       shell: bash
     - uses: JS-DevTools/npm-publish@v3
       with:
-        provenance: ${{ inputs.provenance == "true" }}
+        provenance: ${{ inputs.provenance }}
         token: ${{ inputs.token }}
 
 branding:
