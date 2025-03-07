@@ -11,6 +11,7 @@ Actions and workflows to make GitHub Actions simpler, more robust and more effic
 
 ## Reusable workflows
 
+- `docker-checks`: Locally builds a Docker image and uses `aquasecurity/trivy-action` to check for vulnerabilities.
 - `js-checks`: Run standard checks as linter, code formatter; then run tests against different Node versions.
 - `npm-publish`: Publish a package to NPM.
 
