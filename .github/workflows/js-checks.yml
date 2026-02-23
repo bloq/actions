@@ -22,10 +22,10 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: ${{ inputs.fetch-depth }}
-      - uses: bloq/actions/setup-node-env@v1
+      - uses: bloq/actions/setup-node-env@7a00bde576f8383a7afabf48dc6153bd7a7daab7
         with:
           cache: ${{ inputs.cache }}
       - run: npm run --if-present format:check
@@ -37,10 +37,10 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: ${{ inputs.fetch-depth }}
-      - uses: bloq/actions/setup-node-env@v1
+      - uses: bloq/actions/setup-node-env@7a00bde576f8383a7afabf48dc6153bd7a7daab7
         with:
           cache: ${{ inputs.cache }}
           node-version: ${{ matrix.node-version }}
